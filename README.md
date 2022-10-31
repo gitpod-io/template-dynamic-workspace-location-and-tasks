@@ -1,22 +1,13 @@
-# Selective services example
+# Dynamic workspace root
 
-Open repo with selective services:
+Dynamically change VSCode [workspaceLocation](https://www.gitpod.io/docs/references/gitpod-yml#workspacelocation) based on context.
 
-- [![frontend](https://shields.io/badge/style-frontend-green?logo=gitpod&style=for-the-badge&label=Gitpod)](https://gitpod.io/#SERVICES=frontend/github.com/gitpod-io/template-selective-services)
-- [![backend](https://shields.io/badge/style-backend-green?logo=gitpod&style=for-the-badge&label=Gitpod)](https://gitpod.io/#SERVICES=backend/github.com/gitpod-io/template-selective-services)
-- [![webpage](https://shields.io/badge/style-webpage-green?logo=gitpod&style=for-the-badge&label=Gitpod)](https://gitpod.io/#SERVICES=webpage/github.com/gitpod-io/template-selective-services)
-- [![all](https://shields.io/badge/style-all-green?logo=gitpod&style=for-the-badge&label=Gitpod)](https://gitpod.io/#SERVICES=frontend|backend|webpage/github.com/gitpod-io/template-selective-services)
+Browse to one of the subdirectories on this repo and open a workspace from there. Or you can also click on a button below!
 
-# Customizing
+- [![docs](https://shields.io/badge/style-docs-green?logo=gitpod&style=for-the-badge&label=Gitpod)](https://gitpod.io/#https://github.com/gitpod-io/template-dynamic-workspace-location/tree/main/docs)
+- [![examples](https://shields.io/badge/style-examples-green?logo=gitpod&style=for-the-badge&label=Gitpod)](https://gitpod.io/#https://github.com/gitpod-io/template-dynamic-workspace-location/tree/main/examples)
+- [![practice](https://shields.io/badge/style-practice-green?logo=gitpod&style=for-the-badge&label=Gitpod)](https://gitpod.io/#https://github.com/gitpod-io/template-dynamic-workspace-location/tree/main/practice)
 
-The service startup is handled on [.gitpod.yml](./.gitpod.yml)
+# Details
 
-You can specify the `SERVICES` value via a button 👆 or from your address bar like so:
-
-https://gitpod.io/#SERVICES=frontend|backend|webpage/github.com/gitpod-io/template-selective-services
-
-So it's like `https://gitpod.io/#SERVICES=<values>/<repo>`, values are separated by `|`.
-
-It's mainly powered by this Gitpod feature:
-
-- https://www.gitpod.io/docs/configure/projects/environment-variables#providing-one-time-environment-variables-via-url
+A [.gitpod.yml](./.gitpod.yml) task is used to process `$GITPOD_WORKSPACE_CONTEXT_URL` variable. Later `code -r` command is used if a subdirectory was found on the CONTEXT_URL.

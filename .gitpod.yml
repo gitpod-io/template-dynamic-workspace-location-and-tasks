@@ -1,25 +1,24 @@
 tasks:
-  - name: "Start selective services"
-    command: |
-      printf '\e[3J\033c\e[3J'
-      IFS='|' read -ra services <<<"$SERVICES";
+  - name: "Change workspaceRoot dynamically"
+    before: |
+      (
+        input="$GITPOD_WORKSPACE_CONTEXT_URL";
+        if [[ "$input" =~ /(tree|blob)/(.*) ]]; then {
+            slug="${BASH_REMATCH[2]}";
+            _branch="${slug%%/*}";
+            path="${slug#*/}";
 
-      for service in "${services[@]}"; do {
+            if test -e "$path"; then {
+                if test ! -d "$path"; then {
+                    path="${path%/*}" # Remove filename
+                } fi
 
-        case "$service" in
-          "frontend")
-            echo "Starting the frontend ..."
-            # docker-compose up # ...
-            # And more stuff
-          ;;
-          "backend")
-            echo "Starting the backend ..."
-            # ./some-random-script.sh
-          ;;
-          "webpage")
-            echo "Starting the webpage ..."
-            # npm run dev
-          ;;
-        esac
+                # https://github.com/<owner>/<repo>/(tree|blob)/<branch> %/file.ext% 
+                # != https://github.com/<owner>/<repo>/(tree|blob)/<branch>
+                if test "${input%/path}" != "${input%/*}"; then {
+                    until code -r "$path"; do sleep 1; done
+                } fi
+            } fi
+        } fi
+      ) & disown && exit;
 
-      } done
