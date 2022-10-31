@@ -1,0 +1,25 @@
+tasks:
+  - name: "Start selective services"
+    command: |
+      printf '\e[3J\033c\e[3J'
+      IFS='|' read -ra services <<<"$SERVICES";
+
+      for service in "${services[@]}"; do {
+
+        case "$service" in
+          "frontend")
+            echo "Starting the frontend ..."
+            # docker-compose up # ...
+            # And more stuff
+          ;;
+          "backend")
+            echo "Starting the backend ..."
+            # ./some-random-script.sh
+          ;;
+          "webpage")
+            echo "Starting the webpage ..."
+            # npm run dev
+          ;;
+        esac
+
+      } done
