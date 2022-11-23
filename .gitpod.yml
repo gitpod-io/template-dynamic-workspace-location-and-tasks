@@ -1,5 +1,5 @@
 tasks:
-  - name: "Change workspaceRoot dynamically"
+  - name: "Change workspaceRoot dynamically and cache the path"
     before: |
       (
         input="$GITPOD_WORKSPACE_CONTEXT_URL";
@@ -16,9 +16,41 @@ tasks:
                 # https://github.com/<owner>/<repo>/(tree|blob)/<branch> %/file.ext% 
                 # != https://github.com/<owner>/<repo>/(tree|blob)/<branch>
                 if test "${input%/path}" != "${input%/*}"; then {
+                    echo "$path" > /tmp/.dpath;
                     until code -r "$path"; do sleep 1; done
                 } fi
             } fi
         } fi
       ) & disown && exit;
 
+  - name: "Example conditional task"
+    command: |
+      pathfile="/tmp/.dpath";
+      until test -s "$pathfile"; do sleep 1; done
+      path="$(<"$pathfile")";
+      
+      case "$path" in
+        "frontend")
+          echo "Starting the frontend ..."
+          # docker-compose up # ...
+          # And more stuff
+        ;;
+        "backend")
+          echo "Starting the backend ..."
+          # ./some-random-script.sh
+        ;;
+        "webpage")
+          echo "Starting the webpage ..."
+          # npm run dev
+        ;;
+        "docs")
+          echo "This is docs...."
+          # Stuff here
+         ;;
+      esac
+      
+      
+      
+      
+      
+      
