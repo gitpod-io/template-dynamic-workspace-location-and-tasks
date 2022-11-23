@@ -1,4 +1,4 @@
-# Dynamic workspace root
+# Dynamic workspace root and tasks based on subdirectory context
 
 Dynamically change VSCode [workspaceLocation](https://www.gitpod.io/docs/references/gitpod-yml#workspacelocation) based on context.
 
@@ -11,3 +11,5 @@ Browse to one of the subdirectories on this repo and open a workspace from there
 # Details
 
 A [.gitpod.yml](./.gitpod.yml) task is used to process `$GITPOD_WORKSPACE_CONTEXT_URL` variable. Later `code -r` command is used if a subdirectory was found on the CONTEXT_URL.
+
+We can also run tasks conditionally based on the subdirectory context. (see the 2nd task in [.gitpod.yml](./.gitpod.yml) for example)
