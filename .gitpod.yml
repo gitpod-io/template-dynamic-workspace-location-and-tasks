@@ -48,9 +48,9 @@ tasks:
           # Stuff here
          ;;
       esac
-      
-      
-      
-      
+         
+vscode:
+  extensions:
+    - tabnine.tabnine-vscode
       
       
